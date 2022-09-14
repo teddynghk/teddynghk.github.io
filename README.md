@@ -2,7 +2,8 @@
 
 ** Aim **
 
-The website is to help users write an article faster and continuously under customised word or time limit. This project includes using HTML, CSS and jQuery.
+- The website is to help users write an article faster and continuously under customised word or time limit. 
+- This project includes using HTML, CSS and jQuery.
 
 ---
 
