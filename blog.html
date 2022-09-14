@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Support Chinese -->
+    <meta charset="utf-8"> 
+    <!-- To get screen's width and height -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- To use jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+
+            
+    </script>
+
+
+    <style>
+        @keyframes opacity {
+            from { opacity: 100%; }
+            to  { opacity: 70%; }
+        }
+
+        .topnav{
+            position: fixed;
+            width: 100vw;
+            height: 5vh;
+            background-color: #FBE7C6;
+            padding: none;
+            margin: none;
+        }
+
+        .topnav a{
+            display: inline-block;
+            color: #310a0a;
+            text-align: center;
+            text-decoration: none;                          /* No underline for hyperlinks*/
+            font-size: 15px;
+        }
+
+        .topnav-centered div{
+            float: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0;
+            margin: 0;
+        }
+
+        .topnav-centered a{
+            padding: 14px 16px;
+        }
+        
+        .topnav-right{
+            position: absolute;
+            top: 25%;
+            left: 75%;
+        }
+
+
+        .topnav a:hover{
+            animation: opacity 0.5s forwards;
+        }
+        
+
+        body{
+            margin: 0;
+        }
+        
+        .row{
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 2vw;
+            justify-content: center;
+        }
+
+        .column{
+            flex: 25%;
+            max-width: 25%;
+            padding: 0 1vw;
+        }
+
+        .column img {
+            margin-top: 2vh;
+            vertical-align: middle;
+            width: 100%;
+        }
+
+        .img bottom-right{
+            position: absolute;
+            bottom: -2px;
+            right: 16px;
+        }
+
+    </style>
+
+</head>
+
+
+
+
+<body>
+    <div class="topnav">
+        <div class="topnav-centered">
+            <!-- use div to group centered elements -->
+            <div>  
+                <a href="">小說</a>
+                <a href="">散文</a>
+                <a href="">新詩</a>
+                <a href="">劇本</a>
+            </div>
+        </div>
+
+        <a class="topnav-right" href="">關於我們</a>
+    </div>
+
+    
+    <div class="row">
+        <div class="column">
+            <img src="demo_1.jpg">
+            <div class="bottom-right">如何寫出一篇有內容的文章？</div>
+            <img src="demo_1.jpg">
+            <img src="demo_1.jpg">
+            <img src="demo_1.jpg">
+        </div>
+        <div class="column">
+            <img src="demo_1.jpg">
+            <div class="bottom-right">如何寫出一篇有內容的文章？</div>
+            <img src="demo_1.jpg">
+            <img src="demo_1.jpg">
+            <img src="demo_1.jpg">
+        </div>
+        <div class="column">
+            <img src="demo_1.jpg">
+            <div class="bottom-right">如何寫出一篇有內容的文章？</div>
+            <img src="demo_1.jpg">
+            <img src="demo_1.jpg">
+            <img src="demo_1.jpg">
+        </div>
+    </div>
+
+</body>
+
+
+
+</html>

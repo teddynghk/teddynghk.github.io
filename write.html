@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Support Chinese -->
+    <meta charset="utf-8"> 
+    <!-- To get screen's width and height -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- To use jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+    <script>
+        $(document).ready(function(){
+            // Update the textarea for random topic / add the initial text to the textarea
+            var retrieveData = sessionStorage.getItem("initialText");
+            $("#mainContent").text(retrieveData);
+            
+            //
+            // 
+            // Section - Fading Animation / Blur
+            // 
+            //
+
+            function fadingAnimation(inputTotalSecond,inputTotalWord){
+                var awayFromKeyboardTime = 0;
+                var originlengthOfText = $("#mainContent").val().length;
+                var timer = 0;
+                
+                var fadingCounting = setInterval(function(){
+                    newLengthOfText = $("#mainContent").val().length;
+                    // time passes 0.2 second
+                    timer += 0.2;
+
+                    // No typing
+                    if (originlengthOfText == newLengthOfText){
+                        awayFromKeyboardTime += 0.2;
+                        // Store current text
+                        originlengthOfText = $("#mainContent").val().length;
+                        // Fading Effect
+                        $(document.body).css("animation","fading 10s ease-in forwards");
+                        console.log("AFK time: " + awayFromKeyboardTime);
+                    }else{
+                        // Reset
+                        awayFromKeyboardTime = 0;
+                        // Store current text
+                        originlengthOfText = $("#mainContent").val().length;
+                        // Reset Fading Effect
+                        $(document.body).css("animation","");
+                        console.log("AFK time: " + awayFromKeyboardTime);
+                    };
+
+                    // No typing for 5 seconds -> End & Delete ALL text
+                    if (awayFromKeyboardTime > 5){
+                        clearInterval(fadingCounting);
+                        // Disable write-function
+                        $("#mainContent").attr("readonly","readonly");
+                        // Return Homepage
+                        window.location.replace("homepage.html");
+                    };
+
+                    // Finish the task -> No fading + reset animation
+                    // Check at the end -> no animation at the end
+                    if (inputTotalWord < newLengthOfText){
+                        clearInterval(fadingCounting);
+                        $(document.body).css("animation","");
+                        console.log("Reset animation");
+
+                    };
+
+                    if ((inputTotalSecond < timer) && (inputTotalSecond > 0)){
+                        clearInterval(fadingCounting);
+                        $(document.body).css("animation","");
+                        console.log("Reset animation");
+                    };
+                },200)
+                return false;
+            };
+
+            function wordCountFunction(){setInterval(function(){
+                    newLengthOfText = $("#mainContent").val().length;
+                    $('#countdown').text(newLengthOfText + " 字");
+                    console.log("length of text: " + newLengthOfText);
+                },200);
+            };
+
+
+
+
+
+            //
+            // 
+            // Section - Count word or time
+            // 
+            //
+
+
+            // Get the input
+            var retrieveData = sessionStorage.getItem("selection");
+            var selection = JSON.parse(retrieveData);
+
+
+            //
+            // 
+            // Customized Conditions
+            //
+            //
+            var customizedTime = sessionStorage.getItem("customizedTime");
+            customizedTime = JSON.parse(customizedTime);
+            if (customizedTime > 0){
+                console.log("Input customized number of word: " + customizedTime);
+                selection[0] = 0;
+                selection[1] = customizedTime;
+            }
+
+            var customizedWord = sessionStorage.getItem("customizedWord");
+            customizedWord = JSON.parse(customizedWord);
+            if (customizedWord > 0){
+                console.log("Input customized number of word: " + customizedWord);
+                selection[0] = 1;
+                selection[1] = customizedWord;
+            }
+
+
+            // Selection[0]  ->  0: Time; 1: Word
+            console.log("Selection: " + selection[0]);
+            console.log("Limit: " + selection[1]);
+
+            //
+            // keep tracking the progress & Remain users with the text
+            //
+            if (selection[0]== 0){
+                // Get the total seconds in minutes
+                totalSecond = selection[1]*60;
+                // Display total seconds
+                $("#countdown").text(totalSecond + " 秒");
+                // Show the remaining time (with the change of time)
+                timeCounting = setInterval(function() {
+                    totalSecond -= 1;
+                    $('#countdown').text(totalSecond + " 秒");
+
+                    // Check whether it ends
+                    if (totalSecond < 1){
+                        // Stop interval
+                        clearInterval(timeCounting);
+                        // $("#countdown").text("完成！");
+                        // Allow copying & pasting
+                        $("#mainContent").attr("oncopy","return true");
+                        $("#mainContent").attr("onpaste","return true");
+                        alert("你成功了！！！");
+                        // Keep counting word
+                        wordCountFunction();
+                    };
+                }, 1000);
+
+                // fading animation with input about the target number
+                fadingAnimation(totalSecond);
+            } else{
+                // Display total words first
+                var totalWord = selection[1];
+                var textLength = $("#mainContent").val().length;
+                $('#countdown').text(textLength + " 字");
+
+                var wordCounting = setInterval(function(){
+                    // Update number of word
+                    var textLength = $("#mainContent").val().length;
+                    $('#countdown').text(textLength + " 字");
+                    console.log("Length of text: " + $("#mainContent").val().length);
+
+                    // Check whether it ends
+                    if (totalWord - textLength < 1){
+                        // Stop interval
+                        clearInterval(wordCounting);
+                        // $("#countdown").text("完成！");
+                        // Allow copying & pasting
+                        $("#mainContent").attr("oncopy","return true");
+                        $("#mainContent").attr("onpaste","return true");
+                        alert("你成功了！！！");
+                        // Keep counting word
+                        wordCountFunction();
+                    };
+                },1000);
+
+                // fading animation with input about the target number
+                fadingAnimation(-1,totalWord);
+            };
+          });     
+    </script>
+
+
+
+
+
+
+
+
+    <style>
+        textarea {
+            width: 79vw;
+            height: 74vh;
+            margin: 10vh 10vw 10vh 10vw;
+            box-sizing: border-box;
+            border: 0px;
+            border-radius: 0px;
+            background-color: rgb(244,242,240);
+            font-size: 25px;
+            resize: none;
+            outline: none;
+            overflow: hidden;
+        }
+
+        body{
+            background-color: rgb(244,242,240);
+        }
+
+        .countdown{
+            text-align: center;
+        }
+
+        @keyframes fading{
+            0% { 
+                -webkit-filter: blur(0px);
+                -moz-filter: blur(0px);
+                -o-filter: blur(0px);
+                -ms-filter: blur(0px);
+                filter: blur(0px);
+            }
+            50% { 
+                -webkit-filter: blur(3px);
+                -webkit-filter: blur(3px);
+                -moz-filter: blur(3px);
+                -o-filter: blur(3px);
+                -ms-filter: blur(3px);
+                filter: blur(3px);
+            }
+            100% { 
+                -webkit-filter: blur(6px);
+                -moz-filter: blur(6px);
+                -o-filter: blur(6px);
+                -ms-filter: blur(6px);
+                filter: blur(6px);
+            }
+        }
+
+
+        /* Section - Font Family */
+
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@100&display=swap');
+
+        body, textarea,div{
+            font-family: 'Noto Sans HK', sans-serif;
+            font-weight: 100;
+        }
+
+        
+
+
+    </style>
+</head>
+<body>
+
+    <textarea id="mainContent" oncopy="return false" onpaste="return false" oncut="return false"
+    placeholder="在這裡開始" row="500"></textarea>
+    <div class="countdown" id="countdown">None</div>
+
+</body>
+
+</html>

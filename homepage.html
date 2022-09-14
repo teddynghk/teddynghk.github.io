@@ -1,0 +1,363 @@
+<!--                                    TOC
+
+1. Basic Library / Installation
+2.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- 
+
+                            1. Basic Library / Installation
+
+     -->
+    <!-- Support Chinese -->
+    <meta charset="utf-8"> 
+    <!-- To get screen's width and height -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- To use jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+            function resetCustomizedBox(){
+                // Clear the customized time -> not confuse the user which data is sent
+                $("#customizedTime").val("");
+                $("#customizedWord").val("");
+                console.log("reset the input of customized word and time");
+            };
+
+
+
+
+
+
+
+
+            // s[0,x] as time; s[1,x] as word; x is the limited time/word
+            // the following is to help users set the limitation they want during the writing
+            var selection = [0,5];
+            // 5 minutes
+            $("#5min").click(function(){
+                resetCustomizedBox();
+                selection = [0,5];
+                console.log("set to 5 minutes.")
+                // Pass the variable "selection" to another html
+                sessionStorage.setItem("selection",JSON.stringify(selection));
+            });
+            // 10 minutes
+            $("#10min").click(function(){
+                resetCustomizedBox();
+                selection = [0,10];
+                console.log("set to 10 minutes.")
+                // Pass the variable "selection" to another html
+                sessionStorage.setItem("selection",JSON.stringify(selection));
+            });
+            // 15 minutes
+            $("#15min").click(function(){
+                resetCustomizedBox();
+                selection = [0,15];
+                console.log("set to 15 minutes.")
+                // Pass the variable "selection" to another html
+                sessionStorage.setItem("selection",JSON.stringify(selection));
+            });
+            // 100 words
+            $("#100word").click(function(){
+                resetCustomizedBox();
+                selection = [1,100];
+                console.log("set to 100 words.")
+                // Pass the variable "selection" to another html
+                sessionStorage.setItem("selection",JSON.stringify(selection));
+            });
+            // 200 words
+            $("#200word").click(function(){
+                resetCustomizedBox();
+                selection = [1,200];
+                console.log("set to 200 words.")
+                // Pass the variable "selection" to another html
+                sessionStorage.setItem("selection",JSON.stringify(selection));
+            });
+            // 300 words
+            $("#300word").click(function(){
+                resetCustomizedBox();
+                selection = [1,300];
+                console.log("set to 300 words.")
+                // Pass the variable "selection" to another html
+                sessionStorage.setItem("selection",JSON.stringify(selection));
+            });
+
+            $("#startButton").click(function(){
+                // Store customized data
+                var customizedTime = $("#customizedTime").val();
+                sessionStorage.setItem("customizedTime", JSON.stringify(customizedTime));
+                var customizedWord = $("#customizedWord").val();
+                sessionStorage.setItem("customizedWord", JSON.stringify(customizedWord));
+            });
+
+
+            //
+            //
+            // Section - Random Topics
+            //
+            //
+
+            var topics = ["你獨站在街道的兩旁，","終於開始下雨了，","我是一個壞掉的人，","我們凝望銀河那時，"];
+            var topicTotalNumber = topics.length;
+            console.log("Total number of topics: " + topicTotalNumber);
+            $("#topicButton").click(function(){
+                // Take number between 0 and the total length of topics
+                // Show the random topics
+                $("#topicText").text(topics[Math.floor(Math.random()*topicTotalNumber)]);
+                // Send the text to the next page
+                var initialText = $("#topicText").text();
+                sessionStorage.setItem("initialText",initialText);
+            });
+          });
+
+            
+    </script>
+
+
+    <style>
+
+        h1{
+            text-align: center;
+            margin: 0px;
+            padding: 20vh 0vw 0vh 0vw;
+            font-size: 80px;
+
+        }
+
+        .center_text_regular{
+            text-align: center;
+            /*bottom padding will hide the fading effect*/
+            margin-bottom: 10vh;
+            color: rgb(127, 133, 133);
+            /* Fading text may only apply on Chrome and Safari */
+            -webkit-mask-image: linear-gradient(#000 10%, transparent);
+            -webkit-mask-image: linear-gradient(#000 10%, transparent);
+            -moz-mask-image: linear-gradient(#000 10%, transparent);
+            -o-mask-image: linear-gradient(#000 10%, transparent);
+            -ms-mask-image: linear-gradient(#000 10%, transparent);
+            mask-image: linear-gradient(#000 10%, transparent);
+        }
+
+        .buttonWithOpacity{
+            border-radius: 10px;
+            border: none;
+            background-color: #7cdcd7;
+            font-size: 15px;
+            text-align: center;
+            opacity: 0.4;
+            transition: 0.3s;
+            cursor: pointer;
+            margin-left: none;        
+            margin-right: none;
+        }
+
+        .buttonWithOpacity:hover{
+            opacity:1;
+        }
+
+        .container_4x2{
+            justify-content: center;
+            display: grid;
+            grid-template-columns: 10vw 10vw 10vw 10vw;
+            grid-template-rows: 5vh 5vh 5vh;
+            /* grid-template-areas: ". . . ."; */
+            gap: 10px;
+        }
+
+
+        /* Background-css*/
+        body{
+            width:100vw;
+            height: 100vh;
+            margin: 0;
+            background: url('bg-main3.svg');
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            background-size: cover;
+        }
+
+
+        img{
+            opacity: 0.2;
+        }
+
+        /* hide checkbox */
+        input[type="radio"]{
+            display: none;
+        }
+
+
+        input[type="radio"]:checked + label{
+            background-color: #f1f906;
+        }
+        
+        label{
+            color: black;
+            font-size: 15px;
+            border: 1px solid black;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        input[type="text"]{
+            cursor: auto;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+        
+
+
+        /* Create two unequal columns that floats next to each other */
+        .column{
+            float: left;
+        }
+        
+        .left{
+            width: 10%;
+            background-color: #FFD000;
+        }
+
+        .right{
+            width: 90%;
+        }
+
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* -------Creating floating text on the left column-------- */        
+
+ 
+        @keyframes floating {
+            0% { transform: translate(0,  0px); }
+            50%  { transform: translate(0, 10px); }
+            100%   { transform: translate(0, -0px); }   
+        }
+
+        .course_link{
+            /* transparent color */
+            background-color: rgb(127, 133, 133,0);
+            color: black;
+            font-size: 40px;
+            border: none;
+            display: flex;
+            height: 100vh;
+            width: 10vw;
+            animation: floating 1s ease-in-out infinite;
+            cursor:pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+
+        /* Section - Font Family */
+
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@100&display=swap');
+
+        h1,p,body,label,button{
+            font-family: 'Noto Sans HK', sans-serif;
+            font-weight: 100;
+        }
+    </style>
+</head>
+
+
+
+
+<body>
+    <div class="row">
+        <!-- Left side column -->
+        <div class="column left">
+            <button class="course_link" onclick="location.href='blog.html'">
+                ↓<br/>
+                開<br/>
+                始<br/>
+                你<br/>
+                的<br/>
+                寫<br/>
+                作<br/>
+                之<br/>
+                旅<br/>
+                ↑<br/>
+            </button>
+        </div>
+
+        <!-- Right side column -->
+        <div class="column right">
+            <h1>快速寫作</h1>
+            <p class="center_text_regular" style="font-size: 28px;">「不斷創作或消失」</p>
+            <div class="container_4x2">
+                <input type="radio" name="size" id="5min" checked="checked">
+                <label for="5min">5分鐘</label>
+                <input type="radio" name="size" id="10min">
+                <label for="10min">10分鐘</label>
+                <input type="radio" name="size" id="15min">
+                <label for="15min">15分鐘</label>
+                <!-- customized time -->
+                <input type="text" placeholder="請輸入自訂分鐘" id="customizedTime">
+
+                <input type="radio" name="size" id="100word">
+                <label for="100word">100字</label>
+                <input type="radio" name="size" id="200word">
+                <label for="200word">200字</label>
+                <input type="radio" name="size" id="300word">
+                <label for="300word">300字</label>
+                <!-- customized word -->
+                <input type="text" placeholder="請輸入自訂字數" id="customizedWord">
+
+                <button class="buttonWithOpacity" id="topicButton">隨機</button>
+                <div></div>
+                <div></div>
+                <button class="buttonWithOpacity" id="startButton" onclick="location.href='write.html'">開始</button>
+            </div>
+            </br>
+            <p id="topicText" style="text-align: center;"></p>
+        </div>
+    </div>
+</body>
+
+
+
+</html>
