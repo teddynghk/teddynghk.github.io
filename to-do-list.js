@@ -48,7 +48,7 @@ function displayTasks() {
 // Users press "Enter" to enter a new task
 var taskInput = document.getElementById('taskInput');
 taskInput.addEventListener("keydown", function (event) {
-    if (event.isComposing || event.key === "Enter") {
+    if (event.key === "Enter") {
         addTask();
     }
     // do something
