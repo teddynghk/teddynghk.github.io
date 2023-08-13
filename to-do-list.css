@@ -1,0 +1,108 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 80%;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: left;
+}
+
+
+input[type="text"] {
+  width: 85%;
+  height: 31px;
+  font-size: medium;
+  padding: 8px;
+  margin-left: 4px;
+  border: 3px solid #ccc;
+  border-radius: 4px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+input[type="text"]:hover { border: 3px solid #676767; }
+
+button {
+    width: 10%;
+    height: 50px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+button:hover{
+    border: 3px solid #004894;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  font-size: medium;
+  display: flex;
+  align-items: center; /* Center the checkbox and task content vertically */
+  position: relative;
+  transition: opacity 0.3s;
+}
+
+span.completed {
+  color: grey;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+
+
+label{
+    position: relative;
+    margin: 4px 15px 4px 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+ label span{
+    display: block;
+    text-align: center;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #bababa;
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 10px 20px;
+    min-width: 70px;
+    transition: 350ms;
+  }
+
+label:hover span, label:hover span:before{
+    border: 1px solid #777;
+    color: #777;
+  }
+
+li span.done{
+    background-color: lightgreen;
+    color: black;
+}
+
+li span.undone{
+    background-color: #fff;
+}
+
