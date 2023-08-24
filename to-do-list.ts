@@ -1,6 +1,7 @@
 interface Task {
   content: string;
   completed: boolean;
+  deleted: boolean;
 }
 
 const taskList: Task[] = [];
@@ -9,18 +10,46 @@ function addTask() {
   const taskInput = document.getElementById('taskInput') as HTMLInputElement;
   const taskContent = taskInput.value.trim();
   if (taskContent !== '') {
-    taskList.push({ content: taskContent, completed: false });
+    taskList.push({ content: taskContent, completed: false, deleted: false });
     taskInput.value = '';
     displayTasks();
   }
 }
 
+function deleteTask() {
+  const taskListElement = document.getElementById('taskList');
+  taskListElement.innerHTML = '';
+
+  for (let i=0; i<taskList.length;++i){
+    if (taskList[i].deleted){
+      taskList.splice(i,1);
+      displayTasks();
+      break;
+    }
+  }
+}
+
+
+
 function displayTasks() {
+  
   const taskListElement = document.getElementById('taskList');
   taskListElement.innerHTML = '';
   taskList.forEach((task) => {
     const listItem = document.createElement('li');
     listItem.className = 'task-item'; // Apply the 'task-item' class for styling
+
+    // deleteButton
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('deleteButton');
+    listItem.appendChild(deleteButton);
+
+    deleteButton.addEventListener("click", (event) => {
+      task.deleted = true;
+      deleteTask()
+    });
+
+    // ===========================
 
     const label = document.createElement('label');
 
@@ -60,6 +89,8 @@ function displayTasks() {
     taskListElement.appendChild(listItem);
   });
 }
+
+
 
 // Users press "Enter" to enter a new task
 const taskInput = document.getElementById('taskInput') as HTMLInputElement;

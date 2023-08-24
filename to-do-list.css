@@ -32,7 +32,7 @@ input[type="text"] {
 
 input[type="text"]:hover { border: 3px solid #676767; }
 
-button {
+.addButton{
     width: 10%;
     height: 50px;
     font-size: 14px;
@@ -44,9 +44,25 @@ button {
     cursor: pointer;
 }
 
-button:hover{
+.addButton:hover{
     border: 3px solid #004894;
 }
+
+
+
+
+
+.deleteButton:after{
+  display: inline-block;
+  content: "\00d7"; /* This will render the 'X' */
+  opacity: 0.3;
+}
+
+.deleteButton:hover:after{
+  opacity: 1;
+}
+
+
 
 ul {
   list-style: none;
@@ -71,7 +87,7 @@ span.completed {
 
 label{
     position: relative;
-    margin: 4px 15px 4px 0;
+    margin: 4px 15px 4px 4px;
     display: inline-flex;
     justify-content: center;
     align-items: center;

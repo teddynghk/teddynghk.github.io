@@ -3,9 +3,20 @@ function addTask() {
     var taskInput = document.getElementById('taskInput');
     var taskContent = taskInput.value.trim();
     if (taskContent !== '') {
-        taskList.push({ content: taskContent, completed: false });
+        taskList.push({ content: taskContent, completed: false, deleted: false });
         taskInput.value = '';
         displayTasks();
+    }
+}
+function deleteTask() {
+    var taskListElement = document.getElementById('taskList');
+    taskListElement.innerHTML = '';
+    for (var i = 0; i < taskList.length; ++i) {
+        if (taskList[i].deleted) {
+            taskList.splice(i, 1);
+            displayTasks();
+            break;
+        }
     }
 }
 function displayTasks() {
@@ -14,6 +25,15 @@ function displayTasks() {
     taskList.forEach(function (task) {
         var listItem = document.createElement('li');
         listItem.className = 'task-item'; // Apply the 'task-item' class for styling
+        // deleteButton
+        var deleteButton = document.createElement('button');
+        deleteButton.classList.add('deleteButton');
+        listItem.appendChild(deleteButton);
+        deleteButton.addEventListener("click", function (event) {
+            task.deleted = true;
+            deleteTask();
+        });
+        // ===========================
         var label = document.createElement('label');
         var checkboxText = document.createElement('span');
         checkboxText.textContent = "Undone";
