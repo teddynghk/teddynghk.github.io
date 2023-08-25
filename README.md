@@ -1,4 +1,4 @@
-# https://teddynghk.github.io/homepage.html
+# https://teddynghk.github.io/portfolio.html
 
 ** Aim **
 
